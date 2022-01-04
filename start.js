@@ -8,6 +8,9 @@
 
 /** @param {NS} ns **/
 export async function main(ns) {
+	if (ns.isRunning("init.js", "n00dles")) {
+		ns.kill("init.js", "n00dles");
+	}
 	ns.nuke("n00dles");
 	await ns.scp("init.js", "home", "n00dles");
 	ns.nuke("foodnstuff");
