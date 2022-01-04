@@ -1,7 +1,7 @@
 // This walks the hosts to see if we can root
 // anything.
 
-import { GetHosts } from "util.js";
+import { GetHosts } from "./util.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {
@@ -12,27 +12,27 @@ export async function main(ns) {
 			continue;
 		}
 		var portsOpened = 0;
-		if (ns.fileExists("BruteSSH.exe")) {
+		if (ns.fileExists("BruteSSH.exe", "home")) {
 			ns.brutessh(host.hostname);
 			portsOpened++;
 		}
-		if (ns.fileExists("FTPCrack.exe")) {
+		if (ns.fileExists("FTPCrack.exe", "home")) {
 			ns.ftpcrack(host.hostname);
 			portsOpened++;
 		}
-		if (ns.fileExists("relaySMTP.exe")) {
+		if (ns.fileExists("relaySMTP.exe", "home")) {
 			ns.relaysmtp(host.hostname);
 			portsOpened++;
 		}
-		if (ns.fileExists("HTTPWorm.exe")) {
+		if (ns.fileExists("HTTPWorm.exe", "home")) {
 			ns.httpworm(host.hostname);
 			portsOpened++;
 		}
-		if (ns.fileExists("SQLInject.exe")) {
+		if (ns.fileExists("SQLInject.exe", "home")) {
 			ns.sqlinject(host.hostname);
 			portsOpened++;
 		}
-		if (level >= host.requiredHackingSkill && 
+		if (level >= host.requiredHackingSkill &&
 			portsOpened >= host.numOpenPortsRequired) {
 			ns.nuke(host.hostname);
 		}
