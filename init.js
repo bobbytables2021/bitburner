@@ -8,14 +8,19 @@
 const manager = "foodnstuff";
 
 /** @param {NS} ns **/
-async function lauch(ns, script) {
+async function launch(ns, script) {
 	ns.exec(script, manager);
 	while (ns.isRunning(script, manager)) {
-		await ns.sleep(1000);
+		await ns.sleep(500);
 	}
 }
 export async function main(ns) {
-	await lauch(ns, "network.js");
-	await lauch(ns, "copy.js");
-	await lauch(ns, "rooter.js");
+	await launch(ns, "network.js");
+	await launch(ns, "copy.js");
+	while (true) {
+		await launch(ns, "purchaser.js");
+		await launch(ns, "network.js");
+		await launch(ns, "rooter.js");
+		await launch(ns, "hacker.js");
+	}
 }
