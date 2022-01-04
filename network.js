@@ -9,7 +9,9 @@ export async function main(ns) {
 	var queue = ["home"];
 	var touched = {};
 	touched["home"] = true;
-	hosts.push(ns.getServer("home"));
+	var home = ns.getServer("home");
+	home.reserve = 8;
+	hosts.push(home);
 	while (queue.length > 0) {
 		const host = queue.shift();
 		const neighbors = ns.scan(host);
@@ -18,8 +20,12 @@ export async function main(ns) {
 				queue.push(neighbor);
 				var server = ns.getServer(neighbor);
 				server.parent = host;
-				hosts[neighbor] = server;
-				await ns.scp(CONSTANT.workerScripts, "home", neighbor);
+				if (neighbor == "n00dles" || neighbor == "foodnstuff") {
+					server.reserve = server.maxRam;
+				} else {
+					server.reserve = 0;
+				}
+				hosts.push(server);
 				touched[neighbor] = true;
 			}
 		}
