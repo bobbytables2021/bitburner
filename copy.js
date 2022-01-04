@@ -3,8 +3,8 @@
 // home. If no arguments are given, it copies the default
 // worker scripts.
 
-import { GetHosts } from "util.js";
-import { CONSTANT } from "constants.js";
+import { GetHosts } from "./util.js";
+import { CONSTANT } from "./constants.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {
